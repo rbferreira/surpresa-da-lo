@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Surpresa da Lô — Sobremesas personalizadas premium para festas inesquecíveis. Encomende pelo WhatsApp.">
+    <title>Surpresa da Lô | Sobremesas Personalizadas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════
+           ROOT & RESET
+           ═══════════════════════════════════════════ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --nude: #F7EDE2;
+            --nude-deep: #EFE0D0;
+            --rosa: #FADADD;
+            --rosa-medium: #F4B8C1;
+            --rosa-deep: #E8929E;
+            --marrom: #6B4F4F;
+            --marrom-light: #8B6F6F;
+            --marrom-dark: #4A3636;
+            --branco: #FFFFFF;
+            --cream: #FFF9F5;
+            --gold: #D4A574;
+            --gold-light: #E8C9A0;
+            --shadow-soft: 0 4px 20px rgba(107, 79, 79, 0.1), 0 1px 4px rgba(107, 79, 79, 0.08);
+            --shadow-medium: 0 12px 40px rgba(107, 79, 79, 0.18), 0 4px 12px rgba(107, 79, 79, 0.1);
+            --shadow-glow: 0 0 50px rgba(250, 218, 221, 0.5);
+            --shadow-heavy: 0 20px 60px rgba(107, 79, 79, 0.22), 0 8px 20px rgba(107, 79, 79, 0.12);
+            --radius: 20px;
+            --radius-sm: 12px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 110px; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            color: var(--marrom);
+            background: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ═══════════════════════════════════════════
+           GLOBAL TYPOGRAPHY
+           ═══════════════════════════════════════════ */
+        .script { font-family: 'Great Vibes', cursive; }
+        .serif { font-family: 'Cormorant Garamond', serif; }
+
+        h2.section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            color: var(--marrom);
+            text-align: center;
+            margin-bottom: 0.3em;
+            letter-spacing: 0.02em;
+        }
+
+        h2.section-title .script-accent {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.3em;
+            color: var(--rosa-deep);
+            display: block;
+            line-height: 1.2;
+            font-weight: 400;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+            color: var(--marrom-light);
+            max-width: 560px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        /* ═══════════════════════════════════════════
+           NOISE & TEXTURE OVERLAY
+           ═══════════════════════════════════════════ */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Linen / fabric texture overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: 0.02;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(107, 79, 79, 0.03) 2px, rgba(107, 79, 79, 0.03) 3px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(107, 79, 79, 0.03) 2px, rgba(107, 79, 79, 0.03) 3px);
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        /* Spotlight cursor glow */
+        .cursor-spotlight {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(250, 218, 221, 0.12) 0%, rgba(244, 184, 193, 0.06) 30%, transparent 70%);
+            pointer-events: none;
+            z-index: 9997;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+            mix-blend-mode: screen;
+        }
+
+        /* ═══════════════════════════════════════════
+           SCROLL ANIMATIONS
+           ═══════════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ═══════════════════════════════════════════
+           NAVBAR
+           ═══════════════════════════════════════════ */
+        .navbar {
+            position: fixed;
+            top: 30px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.5s ease;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 249, 245, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0.7rem 2rem;
+            box-shadow: 0 2px 30px rgba(107, 79, 79, 0.08);
+        }
+
+        .nav-logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            color: var(--marrom);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--marrom);
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--rosa-deep);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--rosa-deep); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: var(--marrom) !important;
+            color: var(--branco) !important;
+            padding: 0.5rem 1.4rem;
+            border-radius: 50px;
+            font-size: 0.8rem !important;
+            letter-spacing: 0.08em;
+            transition: all 0.3s ease !important;
+        }
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover {
+            background: var(--marrom-dark) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(107, 79, 79, 0.3);
+        }
+
+        /* Mobile menu */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 32px;
+            height: 24px;
+            position: relative;
+            z-index: 1001;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--marrom);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            position: absolute;
+            left: 0;
+        }
+        .nav-toggle span:nth-child(1) { top: 0; }
+        .nav-toggle span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+        .nav-toggle span:nth-child(3) { bottom: 0; }
+
+        .nav-toggle.active span:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
+        .nav-toggle.active span:nth-child(2) { opacity: 0; }
+        .nav-toggle.active span:nth-child(3) { bottom: 50%; transform: translateY(50%) rotate(-45deg); }
+
+        @media (max-width: 900px) {
+            .nav-toggle { display: block; }
+            .nav-links {
+                position: fixed;
+                inset: 0;
+                background: rgba(255, 249, 245, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2.5rem;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.4s ease;
+            }
+            .nav-links.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+            .nav-links a {
+                font-size: 1.1rem;
+            }
+            .nav-cta {
+                padding: 0.8rem 2rem;
+                font-size: 1rem !important;
+            }
+        }
+
+        /* ═══════════════════════════════════════════
+           HERO
+           ═══════════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 1.5rem 4rem;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(250, 218, 221, 0.5) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(244, 184, 193, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(247, 237, 226, 0.6) 0%, transparent 60%),
+                linear-gradient(180deg, var(--rosa) 0%, var(--nude) 50%, var(--cream) 100%);
+        }
+
+        /* Sparkle particles canvas */
+        .sparkle-canvas {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Floating bokeh circles */
+        .bokeh {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bokeh-1 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(250, 218, 221, 0.6) 0%, rgba(244, 184, 193, 0.2) 40%, transparent 70%);
+            top: 5%; left: -8%;
+            animation: floatBokeh 8s ease-in-out infinite;
+        }
+        .bokeh-2 {
+            width: 320px; height: 320px;
+            background: radial-gradient(circle, rgba(244, 184, 193, 0.5) 0%, rgba(232, 146, 158, 0.15) 40%, transparent 70%);
+            top: 55%; right: -5%;
+            animation: floatBokeh 10s ease-in-out infinite reverse;
+        }
+        .bokeh-3 {
+            width: 350px; height: 350px;
+            background: radial-gradient(circle, rgba(232, 201, 160, 0.45) 0%, rgba(212, 165, 116, 0.1) 40%, transparent 70%);
+            bottom: 0%; left: 15%;
+            animation: floatBokeh 12s ease-in-out infinite 2s;
+        }
+        .bokeh-4 {
+            width: 280px; height: 280px;
+            background: radial-gradient(circle, rgba(250, 218, 221, 0.55) 0%, rgba(255, 255, 255, 0.2) 40%, transparent 70%);
+            top: 15%; right: 10%;
+            animation: floatBokeh 9s ease-in-out infinite 1s;
+        }
+
+        @keyframes floatBokeh {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(20px, -30px) scale(1.05); }
+            66% { transform: translate(-15px, 20px) scale(0.95); }
+        }
+
+        /* Decorative elements */
+        .hero-deco {
+            position: absolute;
+            z-index: 1;
+            opacity: 0.15;
+            font-size: 2rem;
+            animation: floatDeco 6s ease-in-out infinite;
+        }
+        .hero-deco:nth-child(1) { top: 15%; left: 8%; animation-delay: 0s; font-size: 1.5rem; }
+        .hero-deco:nth-child(2) { top: 25%; right: 10%; animation-delay: 1s; font-size: 1.2rem; }
+        .hero-deco:nth-child(3) { bottom: 20%; left: 12%; animation-delay: 2s; font-size: 1.8rem; }
+        .hero-deco:nth-child(4) { bottom: 30%; right: 8%; animation-delay: 0.5s; }
+        .hero-deco:nth-child(5) { top: 45%; left: 5%; animation-delay: 1.5s; font-size: 1rem; }
+
+        @keyframes floatDeco {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-seal {
+            width: 380px;
+            height: auto;
+            margin: 0 auto 1.5rem;
+            display: block;
+            filter: drop-shadow(0 0 25px rgba(232, 146, 158, 0.6)) drop-shadow(0 8px 20px rgba(107, 79, 79, 0.15));
+        }
+
+
+        .hero-brand {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3.5rem, 10vw, 6.5rem);
+            color: var(--marrom);
+            line-height: 1.1;
+            margin-bottom: 0.2em;
+            text-shadow: 0 2px 20px rgba(250, 218, 221, 0.5);
+        }
+
+        .hero-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.1rem, 3vw, 1.6rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--marrom);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            font-weight: 300;
+            color: var(--marrom-light);
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Ornamental divider */
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.2rem 0 1.5rem;
+        }
+        .ornament-line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--rosa-medium), transparent);
+        }
+        .ornament-icon { color: var(--rosa-medium); font-size: 0.9rem; }
+
+        /* ═══════════════════════════════════════════
+           BUTTONS
+           ═══════════════════════════════════════════ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 2.4rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.04em;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--marrom) 0%, var(--marrom-dark) 100%);
+            color: var(--branco);
+            box-shadow: 0 4px 20px rgba(107, 79, 79, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(107, 79, 79, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--marrom);
+            border: 1.5px solid var(--rosa-medium);
+            backdrop-filter: blur(10px);
+        }
+        .btn-secondary:hover {
+            background: var(--rosa);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(250, 218, 221, 0.4);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: var(--branco);
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+        }
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-rose {
+            background: linear-gradient(135deg, var(--rosa-medium) 0%, var(--rosa-deep) 100%);
+            color: var(--branco);
+            box-shadow: 0 4px 20px rgba(232, 146, 158, 0.3);
+        }
+        .btn-rose:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(232, 146, 158, 0.45);
+        }
+
+        /* Shimmer effect on buttons */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        .btn:hover::before { left: 100%; }
+
+        /* Section CTA wrapper */
+        .section-cta {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
+        /* ═══════════════════════════════════════════
+           SECTIONS BASE
+           ═══════════════════════════════════════════ */
+        section {
+            padding: 5rem 1.5rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ═══════════════════════════════════════════
+           VISUAL SHOWCASE
+           ═══════════════════════════════════════════ */
+        .showcase {
+            background:
+                radial-gradient(ellipse at 30% 50%, rgba(250, 218, 221, 0.25) 0%, transparent 60%),
+                var(--cream);
+            padding: 5rem 1.5rem;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .showcase-image-wrap {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-heavy), var(--shadow-glow);
+        }
+
+        .showcase-image-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+
+        .showcase-image-wrap:hover img {
+            transform: scale(1.05);
+        }
+
+        .showcase-image-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(107, 79, 79, 0.15) 100%);
+            pointer-events: none;
+        }
+
+        .showcase-text {
+            padding: 2rem;
+        }
+
+        .showcase-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 500;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            color: var(--marrom);
+        }
+
+        .showcase-text h2 em {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.2em;
+            color: var(--rosa-deep);
+            font-style: normal;
+        }
+
+        .showcase-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .showcase-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+            font-size: 0.95rem;
+            color: var(--marrom-light);
+        }
+
+        .showcase-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--rosa-medium);
+        }
+
+        @media (max-width: 768px) {
+            .showcase-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .showcase-image-wrap { max-width: 400px; margin: 0 auto; }
+        }
+
+        /* ═══════════════════════════════════════════
+           SOBRE (ABOUT)
+           ═══════════════════════════════════════════ */
+        .sobre {
+            background:
+                radial-gradient(ellipse at 70% 30%, rgba(250, 218, 221, 0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 30% 70%, rgba(232, 201, 160, 0.15) 0%, transparent 40%),
+                url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%23F4B8C1' opacity='0.12'/%3E%3C/svg%3E"),
+                linear-gradient(180deg, var(--cream), var(--nude));
+            text-align: center;
+        }
+
+        .sobre-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .sobre-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--marrom);
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .sobre-quote::before,
+        .sobre-quote::after {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--rosa-medium);
+            opacity: 0.4;
+            position: absolute;
+            line-height: 1;
+        }
+        .sobre-quote::before { content: '\201C'; top: -0.2rem; left: -0.5rem; }
+        .sobre-quote::after { content: '\201D'; bottom: -0.5rem; right: -0.5rem; }
+
+        .sobre-detail {
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            color: var(--marrom-light);
+        }
+
+        /* ═══════════════════════════════════════════
+           CARDÁPIO (MENU)
+           ═══════════════════════════════════════════ */
+        .cardapio {
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(247, 237, 226, 0.5) 0%, transparent 50%),
+                var(--cream);
+        }
+
+        .menu-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .menu-line {
+            background: rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(250, 218, 221, 0.4);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .menu-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--rosa), var(--rosa-medium), var(--rosa));
+        }
+
+        .menu-line:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-heavy), var(--shadow-glow);
+        }
+
+        .menu-line-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-line-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--rosa), var(--nude));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .menu-line-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: var(--marrom);
+        }
+
+        .menu-line-badge {
+            margin-left: auto;
+            background: var(--nude);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--marrom-light);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.2rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(250, 218, 221, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(250, 218, 221, 0.15);
+            border-color: var(--rosa-medium);
+        }
+
+        .menu-item-name {
+            font-weight: 400;
+            font-size: 0.95rem;
+            color: var(--marrom);
+        }
+
+        .menu-item-prices {
+            display: flex;
+            gap: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .price-tag {
+            background: var(--nude);
+            padding: 0.2rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--marrom);
+            white-space: nowrap;
+        }
+
+        .price-tag.highlight {
+            background: linear-gradient(135deg, var(--rosa-medium), var(--rosa-deep));
+            color: var(--branco);
+        }
+
+        @media (max-width: 600px) {
+            .menu-line { padding: 1.8rem 1.2rem; }
+            .menu-line-badge { display: none; }
+            .menu-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        }
+
+        /* ═══════════════════════════════════════════
+           KITS
+           ═══════════════════════════════════════════ */
+        .kits {
+            background:
+                radial-gradient(ellipse at 50% 50%, rgba(250, 218, 221, 0.3) 0%, transparent 60%),
+                linear-gradient(180deg, var(--cream), var(--nude), var(--cream));
+        }
+
+        .kits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .kit-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(250, 218, 221, 0.4);
+            border-radius: var(--radius);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .kit-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-heavy), var(--shadow-glow);
+            border-color: var(--rosa-medium);
+        }
+
+        .kit-card.featured {
+            background: linear-gradient(135deg, rgba(250, 218, 221, 0.3), rgba(255, 255, 255, 0.8));
+            border-color: var(--rosa-medium);
+            transform: scale(1.05);
+        }
+        .kit-card.featured:hover {
+            transform: scale(1.05) translateY(-6px);
+        }
+
+        .kit-popular {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--rosa-medium), var(--rosa-deep));
+            color: var(--branco);
+            padding: 0.25rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .kit-qty {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: var(--marrom);
+            line-height: 1;
+        }
+
+        .kit-label {
+            font-size: 0.85rem;
+            color: var(--marrom-light);
+            margin: 0.3rem 0 1.5rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .kit-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--rosa-deep);
+            margin-bottom: 0.3rem;
+        }
+
+        .kit-per-unit {
+            font-size: 0.8rem;
+            color: var(--marrom-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .kit-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .kit-features li {
+            padding: 0.35rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.85rem;
+            color: var(--marrom-light);
+        }
+        .kit-features li::before {
+            content: '\2713';
+            position: absolute;
+            left: 0;
+            color: var(--rosa-medium);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .kits-grid { grid-template-columns: 1fr; max-width: 380px; }
+            .kit-card.featured { transform: none; }
+            .kit-card.featured:hover { transform: translateY(-6px); }
+        }
+
+        /* ═══════════════════════════════════════════
+           DIFERENCIAIS
+           ═══════════════════════════════════════════ */
+        .diferenciais {
+            background:
+                radial-gradient(ellipse at 80% 20%, rgba(250, 218, 221, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(232, 201, 160, 0.15) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%23F4B8C1' stroke-width='0.3' opacity='0.15'/%3E%3C/svg%3E"),
+                var(--cream);
+        }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .diff-card {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(250, 218, 221, 0.3);
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .diff-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy), var(--shadow-glow);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .diff-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.2rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--rosa), var(--nude));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 20px rgba(250, 218, 221, 0.3);
+        }
+
+        .diff-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--marrom);
+            margin-bottom: 0.5rem;
+        }
+
+        .diff-desc {
+            font-size: 0.85rem;
+            color: var(--marrom-light);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .diff-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .diff-grid { grid-template-columns: 1fr; max-width: 320px; }
+        }
+
+        /* ═══════════════════════════════════════════
+           GALERIA
+           ═══════════════════════════════════════════ */
+        .galeria {
+            background:
+                radial-gradient(ellipse at 80% 50%, rgba(250, 218, 221, 0.2) 0%, transparent 50%),
+                linear-gradient(180deg, var(--cream), var(--nude));
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(107, 79, 79, 0.12), 0 2px 8px rgba(107, 79, 79, 0.08);
+            transition: all 0.4s ease;
+            aspect-ratio: 3/4;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 50px rgba(107, 79, 79, 0.2), 0 0 30px rgba(250, 218, 221, 0.3);
+            z-index: 2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.06);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(107, 79, 79, 0.2) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .gallery-item:hover::after { opacity: 1; }
+
+        /* First item spans 2 rows for visual interest */
+        .gallery-item:nth-child(1) {
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-item:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 1;
+                aspect-ratio: 4/3;
+            }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(74, 54, 54, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 2rem;
+        }
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 80px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+        }
+        .lightbox.active img { transform: scale(1); }
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: var(--branco);
+            font-size: 2rem;
+            cursor: pointer;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.1); }
+
+        /* ═══════════════════════════════════════════
+           CONTATO
+           ═══════════════════════════════════════════ */
+        .contato {
+            background:
+                radial-gradient(ellipse at 50% 80%, rgba(250, 218, 221, 0.3) 0%, transparent 50%),
+                linear-gradient(180deg, var(--nude), var(--rosa));
+            text-align: center;
+            padding-bottom: 6rem;
+        }
+
+        .contato-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(250, 218, 221, 0.4);
+            border-radius: var(--radius);
+            padding: 3rem 2.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .contato-channels {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .channel {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            color: var(--marrom);
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .channel:hover {
+            background: var(--rosa);
+            transform: translateY(-2px);
+        }
+
+        .channel-icon {
+            font-size: 1.2rem;
+        }
+
+        .contato-note {
+            font-size: 0.85rem;
+            color: var(--marrom-light);
+            margin-top: 1.5rem;
+            font-style: italic;
+        }
+
+        /* ═══════════════════════════════════════════
+           FLOATING WHATSAPP
+           ═══════════════════════════════════════════ */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            animation: whatsappPulse 2s ease-in-out infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-float svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        @keyframes whatsappPulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
+            50% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 12px rgba(37, 211, 102, 0.1); }
+        }
+
+        /* ═══════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════ */
+        .footer {
+            background: var(--marrom-dark);
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            padding: 2rem 1.5rem;
+            font-size: 0.8rem;
+        }
+
+        .footer-brand {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.6rem;
+            color: var(--rosa);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer a {
+            color: var(--rosa);
+            text-decoration: none;
+        }
+
+        /* ═══════════════════════════════════════════
+           SCARCITY BANNER
+           ═══════════════════════════════════════════ */
+        .scarcity-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            background: linear-gradient(135deg, var(--marrom), var(--marrom-dark));
+            color: var(--branco);
+            text-align: center;
+            padding: 0.55rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.03em;
+        }
+
+        .scarcity-banner strong {
+            color: var(--rosa);
+            font-weight: 600;
+        }
+
+        /* ═══════════════════════════════════════════
+           RESPONSIVE UTILITIES
+           ═══════════════════════════════════════════ */
+        @media (max-width: 480px) {
+            section { padding: 3.5rem 1.2rem; }
+            .hero { padding: 5rem 1.2rem 3rem; }
+            .hero-seal { width: 260px; }
+            .contato-card { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ════════════════ SCARCITY BANNER ════════════════ -->
+    <div class="scarcity-banner">
+        <strong>Vagas limitadas</strong> para o mês — garanta a data do seu evento
+    </div>
+
+    <!-- ════════════════ NAVBAR ════════════════ -->
+    <nav class="navbar" id="navbar">
+        <a href="#hero" class="nav-logo">Surpresa da Lô</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#cardapio">Cardápio</a></li>
+            <li><a href="#kits">Kits</a></li>
+            <li><a href="#galeria">Galeria</a></li>
+            <li><a href="#contato">Contato</a></li>
+            <li><a href="https://wa.me/5521998201151?text=Oi!%20%F0%9F%8D%93%E2%9C%A8%20Quero%20fazer%20um%20pedido%20da%20Surpresa%20da%20L%C3%B4%0A%0A%F0%9F%8E%89%20Tipo%20de%20evento%3A%0A%F0%9F%93%85%20Data%3A%0A%F0%9F%94%A2%20Quantidade%3A" target="_blank" class="nav-cta">Encomendar</a></li>
+        </ul>
+    </nav>
+
+    <!-- ════════════════ HERO ════════════════ -->
+    <section class="hero" id="hero">
+        <!-- Bokeh background -->
+        <div class="bokeh bokeh-1"></div>
+        <div class="bokeh bokeh-2"></div>
+        <div class="bokeh bokeh-3"></div>
+        <div class="bokeh bokeh-4"></div>
+
+        <!-- Sparkle canvas -->
+        <canvas class="sparkle-canvas" id="sparkleCanvas"></canvas>
+
+        <!-- Floating decorative elements -->
+        <div class="hero-deco" aria-hidden="true">&#x1F338;</div>
+        <div class="hero-deco" aria-hidden="true">&#x2728;</div>
+        <div class="hero-deco" aria-hidden="true">&#x1F353;</div>
+        <div class="hero-deco" aria-hidden="true">&#x1F49D;</div>
+        <div class="hero-deco" aria-hidden="true">&#x2B50;</div>
+
+        <div class="hero-content">
+            <img src="selo.png" alt="Selo Surpresa da Lô" class="hero-seal reveal">
+
+            <h1 class="hero-brand reveal reveal-delay-1">Surpresa da Lô</h1>
+
+            <div class="ornament reveal reveal-delay-2">
+                <span class="ornament-line"></span>
+                <span class="ornament-icon">&#x1F353;</span>
+                <span class="ornament-line"></span>
+            </div>
+
+            <p class="hero-tagline reveal reveal-delay-2">Pequenas surpresas que encantam grandes momentos</p>
+            <p class="hero-subtitle reveal reveal-delay-3">Sobremesas personalizadas para festas inesquecíveis</p>
+
+            <div class="reveal reveal-delay-4">
+                <a href="https://wa.me/5521998201151?text=Oi!%20%F0%9F%8D%93%E2%9C%A8%20Quero%20fazer%20um%20pedido%20da%20Surpresa%20da%20L%C3%B4%0A%0A%F0%9F%8E%89%20Tipo%20de%20evento%3A%0A%F0%9F%93%85%20Data%3A%0A%F0%9F%94%A2%20Quantidade%3A" target="_blank" class="btn btn-primary">
+                    Fazer Encomenda
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════ VISUAL SHOWCASE ════════════════ -->
+    <section class="showcase" id="showcase">
+        <div class="showcase-grid">
+            <div class="showcase-image-wrap reveal">
+                <img src="exemplo-post-rede-social.png" alt="Sobremesas personalizadas Surpresa da Lô" loading="lazy">
+            </div>
+            <div class="showcase-text">
+                <h2 class="reveal">Encante seus convidados com sobremesas <em>irresistíveis</em></h2>
+                <ul class="showcase-features reveal reveal-delay-1">
+                    <li>Feito com carinho, especialmente para você</li>
+                    <li>Personalizados para o seu evento</li>
+                    <li>Delícias feitas em camadas</li>
+                    <li>A surpresa doce mais desejada</li>
+                </ul>
+                <div class="reveal reveal-delay-2">
+                    <a href="https://wa.me/5521998201151?text=Oi!%20%F0%9F%8D%93%E2%9C%A8%20Quero%20fazer%20um%20pedido%20da%20Surpresa%20da%20L%C3%B4%0A%0A%F0%9F%8E%89%20Tipo%20de%20evento%3A%0A%F0%9F%93%85%20Data%3A%0A%F0%9F%94%A2%20Quantidade%3A" target="_blank" class="btn btn-rose">
+                        Quero para minha festa
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════ SOBRE ════════════════ -->
+    <section class="sobre" id="sobre">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="script-accent">Sobre</span>
+                Nossa História
+            </h2>
+            <div class="sobre-content reveal reveal-delay-1">
+                <p class="sobre-quote">
+                    Criamos doces que vão além do sabor.<br>
+                    Cada potinho é preparado com carinho para transformar momentos simples em memórias inesquecíveis.
+                </p>
+                <p class="sobre-detail">
+                    Transforme sua festa em uma experiência inesquecível com nossas sobremesas artesanais, personalizadas com o tema e o carinho que seu evento merece.
+                </p>
+            </div>
+            <div class="section-cta reveal reveal-delay-2">
+                <a href="https://wa.me/5521998201151?text=Oi!%20%F0%9F%8D%93%E2%9C%A8%20Quero%20fazer%20um%20pedido%20da%20Surpresa%20da%20L%C3%B4%0A%0A%F0%9F%8E%89%20Tipo%20de%20evento%3A%0A%F0%9F%93%85%20Data%3A%0A%F0%9F%94%A2%20Quantidade%3A" target="_blank" class="btn btn-secondary">
+                    Fale conosco
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════ CARDÁPIO ════════════════ -->
+    <section class="cardapio" id="cardapio">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="script-accent">Cardápio</span>
+                Nossas Delícias
+            </h2>
+            <p class="section-subtitle reveal reveal-delay-1">Sobremesas em camadas, feitas com ingredientes selecionados e muito amor</p>
+
+            <div class="menu-lines">
+                <!-- Linha Assinatura -->
+                <div class="menu-line reveal">
+                    <div class="menu-line-header">
+                        <div class="menu-line-icon">&#x1F353;</div>
+                        <span class="menu-line-name">Linha Assinatura</span>
+                        <span class="menu-line-badge">Mais Pedida</span>
+                    </div>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <span class="menu-item-name">Delícia de Morango</span>
+                            <div class="menu-item-prices">
+                                <span class="price-tag">P 150ml R$15</span>
+                                <span class="price-tag highlight">M 220ml R$21</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Linha Clássicos -->
+                <div class="menu-line reveal reveal-delay-1">
+                    <div class="menu-line-header">
+                        <div class="menu-line-icon">&#x1F36B;</div>
+                        <span class="menu-line-name">Linha Clássicos</span>
+                    </div>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <span class="menu-item-name">Ninho com Nutella</span>
+                            <div class="menu-item-prices">
+                                <span class="price-tag">P R$15</span>
+                                <span class="price-tag highlight">M R$21</span>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <span class="menu-item-name">Brigadeiro Gourmet</span>
+                            <div class="menu-item-prices">
+                                <span class="price-tag">P R$15</span>
+                                <span class="price-tag highlight">M R$21</span>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <span class="menu-item-name">Dois Amores</span>
+                            <div class="menu-item-prices">
+                                <span class="price-tag">P R$15</span>
+                                <span class="price-tag highlight">M R$21</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Linha Premium -->
+                <div class="menu-line reveal reveal-delay-2">
+                    <div class="menu-line-header">
+                        <div class="menu-line-icon">&#x1F48E;</div>
+                        <span class="menu-line-name">Linha Premium</span>
+                        <span class="menu-line-badge">Exclusiva</span>
+                    </div>
+                    <div class="menu-items">
+                        <div class="menu-item">
+                            <span class="menu-item-name">Ferrero</span>
+                            <div class="menu-item-prices">
+                                <span class="price-tag highlight">R$18</span>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <span class="menu-item-name">Kinder</span>
+                            <div class="menu-item-prices">
+                                <span class="price-tag highlight">R$18</span>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <span class="menu-item-name">Cheesecake de Morango</span>
+                            <div class="menu-item-prices">
+                                <span class="price-tag highlight">M 220ml R$26</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-cta reveal">
+                <a href="https://wa.me/5521998201151?text=Oi!%20%F0%9F%8D%93%E2%9C%A8%20Quero%20fazer%20um%20pedido%20da%20Surpresa%20da%20L%C3%B4%0A%0A%F0%9F%8E%89%20Tipo%20de%20evento%3A%0A%F0%9F%93%85%20Data%3A%0A%F0%9F%94%A2%20Quantidade%3A" target="_blank" class="btn btn-primary">
+                    Pedir agora pelo WhatsApp
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.627.616l4.584-1.208A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.683-6.06-1.852a.5.5 0 00-.404-.07l-3.225.85.635-2.322a.5.5 0 00-.064-.425A9.956 9.956 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════ KITS ════════════════ -->
+    <section class="kits" id="kits">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="script-accent">Kits</span>
+                Para Eventos
+            </h2>
+            <p class="section-subtitle reveal reveal-delay-1">Personalizados com nome e tema do seu evento. A lembrancinha perfeita.</p>
+
+            <div class="kits-grid">
+                <div class="kit-card reveal">
+                    <div class="kit-qty">20</div>
+                    <div class="kit-label">unidades</div>
+                    <div class="kit-price">R$300</div>
+                    <div class="kit-per-unit">R$15 por unidade</div>
+                    <ul class="kit-features">
+                        <li>Personalização com nome</li>
+                        <li>Tag e fita decorativa</li>
+                        <li>Sabor à escolha</li>
+                    </ul>
+                    <a href="https://wa.me/5521998201151?text=Oi!%20%F0%9F%8D%93%E2%9C%A8%20Quero%20um%20kit%20de%2020%20unidades%0A%0A%F0%9F%8E%89%20Tipo%20de%20evento%3A%0A%F0%9F%93%85%20Data%3A" target="_blank" class="btn btn-secondary" style="width:100%;justify-content:center;">Escolher</a>
+                </div>
+
+                <div class="kit-card featured reveal reveal-delay-1">
+                    <div class="kit-popular">Mais Escolhido</div>
+                    <div class="kit-qty">30</div>
+                    <div class="kit-label">unidades</div>
+                    <div class="kit-price">R$450</div>
+                    <div class="kit-per-unit">R$15 por unidade</div>
+                    <ul class="kit-features">
+                        <li>Personalização completa</li>
+                        <li>Tag, fita e laço</li>
+                        <li>Sabor à escolha</li>
+                        <li>Mix de sabores</li>
+                    </ul>
+                    <a href="https://wa.me/5521998201151?text=Oi!%20%F0%9F%8D%93%E2%9C%A8%20Quero%20um%20kit%20de%2030%20unidades%0A%0A%F0%9F%8E%89%20Tipo%20de%20evento%3A%0A%F0%9F%93%85%20Data%3A" target="_blank" class="btn btn-rose" style="width:100%;justify-content:center;">Escolher</a>
+                </div>
+
+                <div class="kit-card reveal reveal-delay-2">
+                    <div class="kit-qty">50</div>
+                    <div class="kit-label">unidades</div>
+                    <div class="kit-price">R$750</div>
+                    <div class="kit-per-unit">R$15 por unidade</div>
+                    <ul class="kit-features">
+                        <li>Personalização premium</li>
+                        <li>Embalagem especial</li>
+                        <li>Sabor à escolha</li>
+                        <li>Entrega inclusa*</li>
+                    </ul>
+                    <a href="https://wa.me/5521998201151?text=Oi!%20%F0%9F%8D%93%E2%9C%A8%20Quero%20um%20kit%20de%2050%20unidades%0A%0A%F0%9F%8E%89%20Tipo%20de%20evento%3A%0A%F0%9F%93%85%20Data%3A" target="_blank" class="btn btn-secondary" style="width:100%;justify-content:center;">Escolher</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════ DIFERENCIAIS ════════════════ -->
+    <section class="diferenciais" id="diferenciais">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="script-accent">Por que</span>
+                Escolher a Surpresa da Lô
+            </h2>
+
+            <div class="diff-grid">
+                <div class="diff-card reveal">
+                    <div class="diff-icon">&#x1F3A8;</div>
+                    <div class="diff-title">Personalização Completa</div>
+                    <div class="diff-desc">Cada detalhe pensado para combinar com o tema da sua festa</div>
+                </div>
+                <div class="diff-card reveal reveal-delay-1">
+                    <div class="diff-icon">&#x1F4F8;</div>
+                    <div class="diff-title">Visual Instagramável</div>
+                    <div class="diff-desc">Sobremesas que seus convidados vão querer fotografar</div>
+                </div>
+                <div class="diff-card reveal reveal-delay-2">
+                    <div class="diff-icon">&#x1F9C1;</div>
+                    <div class="diff-title">Produção Artesanal</div>
+                    <div class="diff-desc">Feito à mão com ingredientes selecionados e muito carinho</div>
+                </div>
+                <div class="diff-card reveal reveal-delay-3">
+                    <div class="diff-icon">&#x1F381;</div>
+                    <div class="diff-title">Ideal para Lembranças</div>
+                    <div class="diff-desc">A lembrancinha perfeita que encanta e surpreende</div>
+                </div>
+            </div>
+
+            <div class="section-cta reveal">
+                <a href="https://wa.me/5521998201151?text=Oi!%20%F0%9F%8D%93%E2%9C%A8%20Quero%20fazer%20um%20pedido%20da%20Surpresa%20da%20L%C3%B4%0A%0A%F0%9F%8E%89%20Tipo%20de%20evento%3A%0A%F0%9F%93%85%20Data%3A%0A%F0%9F%94%A2%20Quantidade%3A" target="_blank" class="btn btn-primary">
+                    Encomendar agora
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════ GALERIA ════════════════ -->
+    <section class="galeria" id="galeria">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="script-accent">Galeria</span>
+                Nossos Doces
+            </h2>
+            <p class="section-subtitle reveal reveal-delay-1">Cada potinho conta uma história — confira alguns dos nossos trabalhos</p>
+
+            <div class="gallery-grid">
+                <div class="gallery-item reveal" onclick="openLightbox(this)">
+                    <img src="exemplo-post-rede-social.png" alt="Sobremesas personalizadas Surpresa da Lô" loading="lazy">
+                </div>
+                <div class="gallery-item reveal reveal-delay-1" onclick="openLightbox(this)">
+                    <img src="doce-surpresa-de-morango-guerreiras-kpop.png" alt="Doce personalizado tema K-Pop" loading="lazy">
+                </div>
+                <div class="gallery-item reveal reveal-delay-2" onclick="openLightbox(this)">
+                    <img src="exemplo-post-rede-social2.png" alt="Doces encantadores para festas" loading="lazy">
+                </div>
+                <div class="gallery-item reveal reveal-delay-2" onclick="openLightbox(this)">
+                    <img src="exemplo-tabela-de-precos.png" alt="Cardápio Surpresa da Lô" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" aria-label="Fechar">&times;</button>
+        <img src="" alt="Imagem ampliada" id="lightboxImg">
+    </div>
+
+    <!-- ════════════════ CONTATO ════════════════ -->
+    <section class="contato" id="contato">
+        <div class="container">
+            <h2 class="section-title reveal">
+                <span class="script-accent">Contato</span>
+                Faça seu Pedido
+            </h2>
+            <p class="section-subtitle reveal reveal-delay-1">Escolha o sabor, a quantidade e o tema — nós cuidamos do resto com todo carinho</p>
+
+            <div class="contato-card reveal reveal-delay-2">
+                <div class="contato-channels">
+                    <a href="https://wa.me/5521998201151?text=Oi!%20%F0%9F%8D%93%E2%9C%A8%20Quero%20fazer%20um%20pedido%20da%20Surpresa%20da%20L%C3%B4%0A%0A%F0%9F%8E%89%20Tipo%20de%20evento%3A%0A%F0%9F%93%85%20Data%3A%0A%F0%9F%94%A2%20Quantidade%3A" target="_blank" class="channel">
+                        <span class="channel-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.627.616l4.584-1.208A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.683-6.06-1.852a.5.5 0 00-.404-.07l-3.225.85.635-2.322a.5.5 0 00-.064-.425A9.956 9.956 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+                        </span>
+                        WhatsApp
+                    </a>
+                    <a href="#" class="channel">
+                        <span class="channel-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--rosa-deep)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </span>
+                        @seudocontato
+                    </a>
+                </div>
+
+                <a href="https://wa.me/5521998201151?text=Oi!%20%F0%9F%8D%93%E2%9C%A8%20Quero%20fazer%20um%20pedido%20da%20Surpresa%20da%20L%C3%B4%0A%0A%F0%9F%8E%89%20Tipo%20de%20evento%3A%0A%F0%9F%93%85%20Data%3A%0A%F0%9F%94%A2%20Quantidade%3A" target="_blank" class="btn btn-whatsapp">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.627.616l4.584-1.208A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.683-6.06-1.852a.5.5 0 00-.404-.07l-3.225.85.635-2.322a.5.5 0 00-.064-.425A9.956 9.956 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+                    Pedir agora pelo WhatsApp
+                </a>
+
+                <p class="contato-note">Respondemos em até 2 horas durante o horário comercial</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════ FOOTER ════════════════ -->
+    <footer class="footer">
+        <div class="footer-brand">Surpresa da Lô</div>
+        <p>Sobremesas personalizadas feitas com carinho</p>
+    </footer>
+
+    <!-- ════════════════ FLOATING WHATSAPP ════════════════ -->
+    <a href="https://wa.me/5521998201151?text=Oi!%20%F0%9F%8D%93%E2%9C%A8%20Quero%20fazer%20um%20pedido%20da%20Surpresa%20da%20L%C3%B4%0A%0A%F0%9F%8E%89%20Tipo%20de%20evento%3A%0A%F0%9F%93%85%20Data%3A%0A%F0%9F%94%A2%20Quantidade%3A" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.627.616l4.584-1.208A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.683-6.06-1.852a.5.5 0 00-.404-.07l-3.225.85.635-2.322a.5.5 0 00-.064-.425A9.956 9.956 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+    </a>
+
+    <!-- Cursor spotlight -->
+    <div class="cursor-spotlight" id="cursorSpotlight"></div>
+
+    <!-- ════════════════ SCRIPTS ════════════════ -->
+    <script>
+        /* ── Sparkle Particles ── */
+        (function() {
+            const canvas = document.getElementById('sparkleCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const PARTICLE_COUNT = 80;
+
+            function resize() {
+                const hero = canvas.parentElement;
+                canvas.width = hero.offsetWidth;
+                canvas.height = hero.offsetHeight;
+            }
+
+            function createParticle() {
+                return {
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 4 + 1.5,
+                    speedY: -(Math.random() * 0.3 + 0.1),
+                    speedX: (Math.random() - 0.5) * 0.3,
+                    opacity: Math.random(),
+                    opacitySpeed: Math.random() * 0.015 + 0.005,
+                    opacityDir: 1
+                };
+            }
+
+            function init() {
+                resize();
+                particles = [];
+                for (let i = 0; i < PARTICLE_COUNT; i++) {
+                    particles.push(createParticle());
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach(p => {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    p.opacity += p.opacitySpeed * p.opacityDir;
+
+                    if (p.opacity >= 1) p.opacityDir = -1;
+                    if (p.opacity <= 0) {
+                        Object.assign(p, createParticle());
+                        p.opacity = 0;
+                        p.opacityDir = 1;
+                    }
+
+                    if (p.y < -10) {
+                        p.y = canvas.height + 10;
+                        p.x = Math.random() * canvas.width;
+                    }
+
+                    // Draw sparkle
+                    ctx.save();
+                    ctx.globalAlpha = p.opacity * 0.8;
+                    ctx.fillStyle = '#F4B8C1';
+                    ctx.shadowBlur = p.size * 6;
+                    ctx.shadowColor = 'rgba(244, 184, 193, 0.8)';
+
+                    // Star shape
+                    ctx.beginPath();
+                    const s = p.size;
+                    ctx.arc(p.x, p.y, s, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Cross sparkle lines
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(p.x - s * 2, p.y);
+                    ctx.lineTo(p.x + s * 2, p.y);
+                    ctx.moveTo(p.x, p.y - s * 2);
+                    ctx.lineTo(p.x, p.y + s * 2);
+                    ctx.stroke();
+
+                    ctx.restore();
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', resize);
+            init();
+            animate();
+        })();
+
+        /* ── Scroll Reveal ── */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        /* ── Navbar Scroll ── */
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
+            if (currentScroll > 60) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            lastScroll = currentScroll;
+        }, { passive: true });
+
+        /* ── Mobile Nav Toggle ── */
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        /* ── Lightbox ── */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+
+        function openLightbox(el) {
+            const img = el.querySelector('img');
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        /* ── Cursor Spotlight ── */
+        (function() {
+            const spotlight = document.getElementById('cursorSpotlight');
+            if (!spotlight || window.matchMedia('(pointer: coarse)').matches) {
+                if (spotlight) spotlight.style.display = 'none';
+                return;
+            }
+
+            let mouseX = -500, mouseY = -500;
+            let spotX = -500, spotY = -500;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            }, { passive: true });
+
+            document.addEventListener('mouseleave', () => {
+                spotlight.style.opacity = '0';
+            });
+            document.addEventListener('mouseenter', () => {
+                spotlight.style.opacity = '1';
+            });
+
+            function animateSpotlight() {
+                spotX += (mouseX - spotX) * 0.15;
+                spotY += (mouseY - spotY) * 0.15;
+                spotlight.style.left = spotX + 'px';
+                spotlight.style.top = spotY + 'px';
+                requestAnimationFrame(animateSpotlight);
+            }
+            animateSpotlight();
+        })();
+    </script>
+</body>
+</html>
